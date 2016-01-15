@@ -111,16 +111,14 @@
     </noscript>
 
     <!-- Leaflet Left Tabbed Sidebar -->
-    <div id="left-sidebar">
-       {% if config.sidebar.legend_enabled %}
-        <div id="left-sidebar">
-          <div id="sidebar" class="sidebar collapsed">
-            {% block sidebar %}{% endblock %}
-            <!--<header>Master Legend</header>-->
-          </div>
+     {% if config.sidebar.legend_enabled %}
+      <div id="left-sidebar">
+        <div id="sidebar" class="sidebar collapsed">
+          {% block sidebar %}{% endblock %}
+          <!--<header>Master Legend</header>-->
         </div>
-       {% endif %}
-    </div>
+      </div>
+     {% endif %}
 
     {% if config.map.geocoding_bar_enabled %}
     <div id="geocode-address-bar" class="clearfix"></div>
