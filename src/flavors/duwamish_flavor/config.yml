@@ -598,7 +598,7 @@ place:
       value: observation
       label: _(Observation)
       fields:
-        - name: type
+        - name: location_type
           type: radio_big_buttons
           prompt: _(Type of report)
           content: report_types
@@ -621,7 +621,7 @@ place:
     land_use:
       label: _(Land use)
       fields:
-        - name: type
+        - name: location_type
           type: radio_big_buttons
           prompt: _(Type of report)
           content: report_types
@@ -656,7 +656,7 @@ place:
       value: air_watch
       label: _(Air watch)
       fields:
-        - name: type
+        - name: location_type
           type: radio_big_buttons
           prompt: _(Type of report)
           content: report_types
@@ -674,7 +674,7 @@ place:
     dog_watch:
       label: _(Dog watch)
       fields:
-        - name: type
+        - name: location_type
           type: radio_big_buttons
           prompt: _(Type of report)
           content: report_types
