@@ -687,3 +687,11 @@ pages:
   - slug: youthcorps2015
     name: youthcorps2015
     hide_from_top_bar: true
+
+
+cluster:
+  threshold: 20
+  size_large: 45
+  class_large: cluster-large
+  size_small: 35
+  class_small: cluster-small

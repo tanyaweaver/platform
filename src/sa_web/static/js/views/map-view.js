@@ -19,7 +19,15 @@ var Shareabouts = Shareabouts || {};
 
       self.map = L.map(self.el, self.options.mapConfig.options);
 
-      self.placeLayers = self.getLayerGroups();
+      //self.placeLayers = self.getLayerGroups();
+      self.placeLayers = {
+        "observation": self.getLayerGroups(),
+        "complaint": self.getLayerGroups(),
+        "idea": self.getLayerGroups(),
+        "greenwall": self.getLayerGroups(),
+        "mapbox": self.getLayerGroups(),
+        "question": self.getLayerGroups()
+      };
 
       self.layers = {};
 
@@ -92,7 +100,11 @@ var Shareabouts = Shareabouts || {};
         self.initGeolocation();
       }
 
-      self.map.addLayer(self.placeLayers);
+      //self.map.addLayer(self.placeLayers);
+      _.each(self.placeLayers, function(value, key) {
+        self.map.addLayer(value);
+      });
+
 
       self.map.on('dragend', logUserPan);
       $(self.map.zoomControl._zoomInButton).click(logUserZoom);
@@ -154,6 +166,7 @@ var Shareabouts = Shareabouts || {};
       });
     }, 1000),
     render: function() {
+      console.log("map render");
       var self = this;
 
       // Clear any existing stuff on the map, and free any views in
@@ -165,9 +178,12 @@ var Shareabouts = Shareabouts || {};
         self.landmarkLayerViews[collectionId] = {};
       });
 
-      this.collection.each(function(model, i) {
-        self.addLayerView(model);
-      });
+      //this.collection.each(function(model, i) {
+      //  self.addLayerView(model);
+      //});
+      
+      console.log(this.collection);
+      
     },
     initGeolocation: function() {
       var self = this;

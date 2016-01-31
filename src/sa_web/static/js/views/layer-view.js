@@ -30,6 +30,9 @@ var Shareabouts = Shareabouts || {};
       // Handle if an existing place type does not match the list of available
       // place types.
       this.placeType = this.options.placeTypes[this.model.get('location_type')];
+
+      console.log("this.placeType", this.placeType);
+
       if (!this.placeType) {
         console.warn('Place type', this.model.get('location_type'),
           'is not configured so it will not appear on the map.');
@@ -38,7 +41,6 @@ var Shareabouts = Shareabouts || {};
 
       // Don't draw new places. They are shown by the centerpoint in the app view
       if (!this.model.isNew()) {
-
         // Determine the style rule to use based on the model data and the map
         // state.
         context = _.extend({},
@@ -89,7 +91,7 @@ var Shareabouts = Shareabouts || {};
     },
     removeLayer: function() {
       if (this.layer) {
-        this.options.placeLayers.removeLayer(this.layer);
+        this.options.placeLayers[this.model.get('location_type')].removeLayer(this.layer);
       }
     },
     render: function() {
@@ -146,7 +148,9 @@ var Shareabouts = Shareabouts || {};
       if (!this.options.mapView.locationTypeFilter ||
         this.options.mapView.locationTypeFilter.toUpperCase() === this.model.get('location_type').toUpperCase()) {
         if (this.layer) {
-          this.options.placeLayers.addLayer(this.layer);
+          console.log("this.layer", this.layer);
+          //this.options.placeLayers.addLayer(this.layer);
+          this.options.placeLayers[this.model.get('location_type')].addLayer(this.layer);
         }
       } else {
         this.hide();
