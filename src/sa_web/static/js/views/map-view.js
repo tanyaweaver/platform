@@ -336,11 +336,14 @@ var Shareabouts = Shareabouts || {};
         return L.markerClusterGroup({
           iconCreateFunction: function(cluster) {
             var markers = cluster.getAllChildMarkers();
+            console.log("markers[0]", markers[0]);
             var n = markers.length;
+            var iconUrl = markers[0].options.icon.options.iconUrl;
+            var html = "<div class='cluster-icon-container'><img src='" + iconUrl + "' width='45px' /><div class='icon-number-readout'>" + n + "</div></div>";
             var small = n < clusterOptions.threshold;
-            var className = small ? clusterOptions.class_small: clusterOptions.class_large;
-            var size = small ? clusterOptions.size_small : clusterOptions.size_large;
-            return L.divIcon({ html: n, className: className, iconSize: [size, size] });
+            var className = "";
+            //var size = small ? clusterOptions.size_small : clusterOptions.size_large;
+            return L.divIcon({ html: html, className: className, iconSize: [50, 50] });
           }
         });
       }
