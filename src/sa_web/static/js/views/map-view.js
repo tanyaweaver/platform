@@ -166,7 +166,6 @@ var Shareabouts = Shareabouts || {};
       });
     }, 1000),
     render: function() {
-      console.log("map render");
       var self = this;
 
       // Clear any existing stuff on the map, and free any views in
@@ -180,10 +179,7 @@ var Shareabouts = Shareabouts || {};
 
       //this.collection.each(function(model, i) {
       //  self.addLayerView(model);
-      //});
-      
-      console.log(this.collection);
-      
+      //});      
     },
     initGeolocation: function() {
       var self = this;
@@ -336,7 +332,6 @@ var Shareabouts = Shareabouts || {};
         return L.markerClusterGroup({
           iconCreateFunction: function(cluster) {
             var markers = cluster.getAllChildMarkers();
-            console.log("markers[0]", markers[0]);
             var n = markers.length;
             var iconUrl = markers[0].options.icon.options.iconUrl;
             var html = "<div class='cluster-icon-container'><img src='" + iconUrl + "' width='100%' /><div class='icon-number-readout'>" + n + "</div></div>";

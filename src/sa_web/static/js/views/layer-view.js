@@ -31,8 +31,6 @@ var Shareabouts = Shareabouts || {};
       // place types.
       this.placeType = this.options.placeTypes[this.model.get('location_type')];
 
-      console.log("this.placeType", this.placeType);
-
       if (!this.placeType) {
         console.warn('Place type', this.model.get('location_type'),
           'is not configured so it will not appear on the map.');
@@ -148,7 +146,6 @@ var Shareabouts = Shareabouts || {};
       if (!this.options.mapView.locationTypeFilter ||
         this.options.mapView.locationTypeFilter.toUpperCase() === this.model.get('location_type').toUpperCase()) {
         if (this.layer) {
-          console.log("this.layer", this.layer);
           //this.options.placeLayers.addLayer(this.layer);
           this.options.placeLayers[this.model.get('location_type')].addLayer(this.layer);
         }
