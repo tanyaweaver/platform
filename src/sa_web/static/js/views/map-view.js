@@ -19,16 +19,13 @@ var Shareabouts = Shareabouts || {};
 
       self.map = L.map(self.el, self.options.mapConfig.options);
 
-      //self.placeLayers = self.getLayerGroups();
-      self.placeLayers = {
-        "observation": self.getLayerGroups(),
-        "complaint": self.getLayerGroups(),
-        "idea": self.getLayerGroups(),
-        "greenwall": self.getLayerGroups(),
-        "mapbox": self.getLayerGroups(),
-        "question": self.getLayerGroups()
-      };
+      self.placeLayers = {};
 
+      // generate a separate layer for each place type
+      _.each(self.options.placeTypes, function(value, key) {
+        self.placeLayers[key] = self.getLayerGroups();
+      });
+      
       self.layers = {};
 
       // Init the layer view caches
