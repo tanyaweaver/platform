@@ -339,11 +339,8 @@ var Shareabouts = Shareabouts || {};
             console.log("markers[0]", markers[0]);
             var n = markers.length;
             var iconUrl = markers[0].options.icon.options.iconUrl;
-            var html = "<div class='cluster-icon-container'><img src='" + iconUrl + "' width='45px' /><div class='icon-number-readout'>" + n + "</div></div>";
-            var small = n < clusterOptions.threshold;
-            var className = "";
-            //var size = small ? clusterOptions.size_small : clusterOptions.size_large;
-            return L.divIcon({ html: html, className: className, iconSize: [50, 50] });
+            var html = "<div class='cluster-icon-container'><img src='" + iconUrl + "' width='100%' /><div class='icon-number-readout'>" + n + "</div></div>";
+            return L.divIcon({ html: html, className: "", iconSize: [50, 50] });
           }
         });
       }
