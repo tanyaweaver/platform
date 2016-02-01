@@ -21,7 +21,7 @@ var Shareabouts = Shareabouts || {};
 
       self.placeLayers = {};
 
-      // generate a separate layer for each place type
+      // generate a separate layer group for each place type
       _.each(self.options.placeTypes, function(value, key) {
         self.placeLayers[key] = self.getLayerGroups();
       });
