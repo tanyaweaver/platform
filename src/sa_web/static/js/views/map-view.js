@@ -327,6 +327,7 @@ var Shareabouts = Shareabouts || {};
         return L.layerGroup();
       } else {
         return L.markerClusterGroup({
+          spiderfyDistanceMultiplier: 80,
           maxClusterRadius: clusterOptions.threshold,
           iconCreateFunction: function(cluster) {
             var markers = cluster.getAllChildMarkers();
@@ -335,6 +336,8 @@ var Shareabouts = Shareabouts || {};
             var html = "<div class='cluster-icon-container'><img src='" + iconUrl + "' width='100%' /><div class='icon-number-readout'>" + n + "</div></div>";
             return L.divIcon({ html: html, className: "", iconSize: [50, 50] });
           }
+        }).on("spiderfied", function() {
+          console.log("!!!!!");
         });
       }
     }
