@@ -327,6 +327,7 @@ var Shareabouts = Shareabouts || {};
         return L.layerGroup();
       } else {
         return L.markerClusterGroup({
+          maxClusterRadius: clusterOptions.threshold,
           iconCreateFunction: function(cluster) {
             var markers = cluster.getAllChildMarkers();
             var n = markers.length;
