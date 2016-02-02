@@ -593,7 +593,8 @@ place:
   #TODO: maybe add an autocomplete
   #TODO: DRY up this section
   categories:
-    - name: location_type
+    observation:
+      name: location_type
       value: observation
       label: _(Observation)
       fields:
@@ -612,7 +613,8 @@ place:
           prompt: _(Pollution description)
           placeholder: _(Description...)
           optional: false
-    - name: location_type
+    question:
+      name: location_type
       value: question
       label: _(Question)
       fields:
@@ -621,7 +623,8 @@ place:
           prompt: _(Land use description)
           placeholder: _(Description...)
           optional: false
-    - name: location_type
+    idea:
+      name: location_type
       value: idea
       label: _(Idea)
       fields:
@@ -635,7 +638,8 @@ place:
           prompt: _(Describe your idea below:)
           placeholder: _(Description...)
           optional: false
-    - name: location_type
+    complaint:
+      name: location_type
       value: complaint
       label: _(Complaint)
       fields:
@@ -644,7 +648,8 @@ place:
           prompt: _(What's your complaint?)
           placeholder: _(Description...)
           optional: false
-    - name: location_type
+    air_watch:
+      name: location_type
       value: air_watch
       label: _(Air watch)
       fields:
@@ -658,7 +663,8 @@ place:
           prompt: _(Description)
           placeholder: _(Description...)
           optional: false
-    - name: location_type
+    tree:
+      name: location_type
       value: tree
       label: _(Tree)
       fields:
