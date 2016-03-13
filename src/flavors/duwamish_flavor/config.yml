@@ -625,6 +625,7 @@ place:
   categories:
     observation:
       name: location_type
+      dataset: duwamish
       icon_url: /static/css/images/markers/marker-observation.png
       value: observation
       label: _(Observation)
@@ -646,6 +647,7 @@ place:
           optional: false
     question:
       name: location_type
+      dataset: duwamish
       icon_url: /static/css/images/markers/marker-question.png
       value: question
       label: _(Question)
@@ -657,6 +659,7 @@ place:
           optional: false
     idea:
       name: location_type
+      dataset: duwamish
       icon_url: /static/css/images/markers/marker-idea.png
       value: idea
       label: _(Idea)
@@ -673,6 +676,7 @@ place:
           optional: false
     complaint:
       name: location_type
+      dataset: duwamish
       icon_url: /static/css/images/markers/marker-complaint.png
       value: complaint
       label: _(Complaint)
@@ -684,6 +688,7 @@ place:
           optional: false
     air_watch:  #defines a top-level form category
       name: location_type  #needs to be "location_type"
+      dataset: air
       icon_url: /static/css/images/markers/marker-complaint.png  #TEMPORARY
       value: air_watch  #internal value used for this category
       label: _(Air watch)  #label for this category
@@ -748,6 +753,7 @@ place:
           optional: true   
     tree:
       name: location_type
+      dataset: trees
       icon_url: /static/css/images/markers/marker-tree.png
       value: tree
       label: _(Tree)
