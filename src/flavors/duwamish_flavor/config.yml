@@ -68,21 +68,19 @@ map:
       type: cartodb
       url: "https://smartercleanup.cartodb.com/api/v2/viz/b369d508-c02b-11e5-9a08-0ecfd53eb7d3/viz.json"
 
-      # WMS landuse
+      # Land Use
     - id: landuse
       type: cartodb
       url: "https://hdbig.cartodb.com/api/v2/viz/76d1e054-d5ed-11e5-bf91-0e5db1731f59/viz.json"
       opacity: 0.5
 
-      # WMS Buildings connection:
-    - id: buildings
-      url: //d171ntg776wsmz.cloudfront.net/geoserver/wria9/wms
-      layers: 'wria9:2009BuildingsCOS'
-      version: '1.1.0'
-      transparent: 'true'
-      format: 'image/png'
+      # Areas susceptible to groundwater contamination
 
-      # WMS NLCD
+    - id: phase
+      type: cartodb
+      url: "https://gis206.cartodb.com/api/v2/viz/217a2e02-e729-11e5-9bd4-0e5db1731f59/viz.json"      
+
+      # Land Coverage
     - id: landcoverage
       url: //d171ntg776wsmz.cloudfront.net/geoserver/wria9/wms
       layers: 'wria9:nlcd2011'
@@ -504,30 +502,23 @@ sidebar:
           title: _(Land Data)
           visibleDefault: false
           layers:
-              # WMS landuse
+              # Land Use
             - id: landuse
               description-image: /static/css/images/legend-landuse2010.png
               description-image-alt: 'legend'
               title: _(Land use)
               visibleDefault: false
 
-              # WMS NLCD
-            - id: landcoverage
-              description-image: /static/css/images/legend-nlcd2011.png
-              description-image-alt: 'legend'
-              title: _(Land coverage)
-              visibleDefault: false
-
-              # WMS Buildings connection:
-            - id: buildings
-              description: _(legend coming soon!)
-              title: _(Buildings)
-              visibleDefault: false
-
               # Noxious Weeds
             - id: noxious-weeds
               title: _(Noxious Weeds)
               description: _(Invasive species of weeds)
+              visibleDefault: false
+
+              # Areas susceptible to groundwater contamination
+              id: phase
+              description: _(Jesse test)
+              title: _(Restoration phase)
               visibleDefault: false
 
         - id: grp-history
