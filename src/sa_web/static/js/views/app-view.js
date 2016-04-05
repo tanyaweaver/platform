@@ -867,6 +867,7 @@ var Shareabouts = Shareabouts || {};
       $("#add-place-btn-container").attr("class", "pos-top-right");
 
       S.Util.log('APP', 'panel-state', 'closed');
+      $("#spotlight-place-mask").remove();
     },
     hideNewPin: function() {
       this.showCenterPoint();
