@@ -41,7 +41,8 @@
   {% if settings.DEBUG %}
   <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet-sidebar.css">
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/default.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
+  <!--<link rel="stylesheet" href="{{ STATIC_URL }}css/default.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}"> -->
+  <link rel="stylesheet" href="{{ STATIC_URL }}sass/default.sass">
 
   <!-- jQuery date-time picker plugin -->
   <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.datetimepicker.css">

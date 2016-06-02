@@ -2,6 +2,8 @@
 import datetime
 import os.path
 
+
+
 HERE = os.path.abspath(os.path.join(os.path.dirname(__file__)))
 
 DEBUG = True
@@ -88,6 +90,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
     'compressor.finders.CompressorFinder',
+    'sass_processor.finders.CssFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -154,6 +157,7 @@ INSTALLED_APPS = (
     'jstemplate',
     'compressor',
     'django_extensions',
+    'sass_processor',
 
     # Project apps
     'sa_web',
@@ -429,4 +433,15 @@ if SHAREABOUTS['DATASET_ROOT'].startswith('/'):
 
     CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
 
+###########################
+#
+# Sass configuration
+#
+###########################
 
+SASS_PROCESSOR_INCLUDE_DIRS = (
+    os.path.join('/sass/default.sass'),
+    os.path.join('node_modules'),
+)
+SASS_PROCESSOR_ENABLED = 'true'
+SASS_OUTPUT_STYLE = 'compact'
