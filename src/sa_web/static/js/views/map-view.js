@@ -19,7 +19,7 @@ var Shareabouts = Shareabouts || {};
 
       this.map = L.map(self.el, self.options.mapConfig.options);
 
-      this.placeLayers = self.getLayerGroups();
+      this.placeLayers = {}
       this.layers = {};
       this.layerViews = {};
 
@@ -113,8 +113,16 @@ var Shareabouts = Shareabouts || {};
             .on('error', function(err) {
               S.Util.log('Cartodb layer creation error:', err);
             });
-        } else if (config.type && config.type === 'shareabouts') {
-          self.layers[config.id] = self.placeLayers;
+        } else if (config.type && config.type === 'place') {
+          self.placeLayers[config.id] = self.getLayerGroups();
+          self.layerViews[config.id] = {};
+          
+          // bind collection events
+          collection = self.places[config.id];
+          collection.on('reset', self.render, self);
+          collection.on('add', self.addLayerView, self);
+          collection.on('remove', self.removeLayerView, self);
+
         } else if (config.type && config.type === 'basemap') {
           // Assume a tile layer
           layer = L.tileLayer(config.url, config);
@@ -149,6 +157,7 @@ var Shareabouts = Shareabouts || {};
           layer.addTo(self.map);
         }
       });
+
       // Remove default prefix
       self.map.attributionControl.setPrefix('');
 
@@ -157,7 +166,9 @@ var Shareabouts = Shareabouts || {};
         self.initGeolocation();
       }
 
-      self.map.addLayer(self.placeLayers);
+      _.each(self.placeLayers, function(value, key) {
+        self.map.addLayer(value);
+      });
 
       self.map.on('dragend', logUserPan);
       $(self.map.zoomControl._zoomInButton).click(logUserZoom);
@@ -178,17 +189,12 @@ var Shareabouts = Shareabouts || {};
       self.map.on('dragend', function(evt) {
         $(S).trigger('mapdragend', [evt]);
       });
-
-      // Bind data events to shareabouts collections
-      _.each(self.places, function(collection) {
-        collection.on('reset', self.render, self);
-        collection.on('add', self.addLayerView, self);
-        collection.on('remove', self.removeLayerView, self);
-      });
       
       // Bind visiblity event for custom layers
       $(S).on('visibility', function (evt, id, visible) {
-        var layer = self.layers[id];
+
+        // TODO: this is too wonky...
+        var layer = self.layers[id] || self.placeLayers[id];
         if (layer) {
           self.setLayerVisibility(layer, visible);
         } else if (id === 'toggle-satellite') {
@@ -332,11 +338,12 @@ var Shareabouts = Shareabouts || {};
       }
     },
     addLayerView: function(model) {
-      this.layerViews[model.cid] = new S.LayerView({
+      var datasetId = model.get("datasetId");
+      this.layerViews[datasetId][model.cid] = new S.LayerView({
         model: model,
         router: this.options.router,
         map: this.map,
-        placeLayers: this.placeLayers,
+        placeLayers: this.placeLayers[datasetId],
         placeTypes: this.options.placeTypes,
         // to access the filter
         mapView: this

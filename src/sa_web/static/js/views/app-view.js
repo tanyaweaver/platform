@@ -725,7 +725,7 @@ var Shareabouts = Shareabouts || {};
 
         // TODO: We need to handle the non-deterministic case when
         // 'self.mapView.layerViews[model.cid]` is undefined
-        layer = self.mapView.layerViews[model.cid].layer;
+        layer = self.mapView.layerViews[datasetId][model.cid].layer;
         placeDetailView = self.getPlaceDetailView(model);
 
         if (layer) {
