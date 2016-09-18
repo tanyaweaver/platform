@@ -1115,6 +1115,11 @@ pages:
     name: background
     hide_from_top_bar: true
 
+  - title: _(Stories)
+    slug: stories
+    name: stories
+    hide_from_top_bar: false
+
   - title: _(Get involved)
     slug: getinvolved
     name: contribute
@@ -1141,6 +1146,9 @@ pages:
     name: terms
     hide_from_top_bar: true
 
+
+# Stories
+
 story:
   restoration:
     tagline: _(Next featured site)
@@ -1152,6 +1160,7 @@ story:
     default_visible_layers:
       - restoration
       - watershed
+      - cso
     order: 
       - url: skatepark
       - url: upper-green
