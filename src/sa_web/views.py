@@ -52,6 +52,18 @@ class ShareaboutsApi (object):
                            headers={'Accept': 'application/json'})
         return (res.text if res.status_code == 200 else default)
 
+    def get_from_url(self, dataset_url, default=None, **kwargs):
+        # uri = make_resource_uri(dataset_url, root=self.dataset_root)
+        # uri = "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/trees/places/283"
+        uri = '%s?%s' % (dataset_url, 'format=json')
+        print("api.get_from_url: uri")
+        import ipdb
+        ipdb.set_trace()
+
+        res = requests.get(uri, params=kwargs,
+                           headers={'Accept': 'application/json'})
+        return (res.text if res.status_code == 200 else default)
+
     def current_user(self, default=u'null', **kwargs):
         uri = make_resource_uri('current', root=self.auth_root)
         res = requests.get(uri, headers={'Accept': 'application/json'}, **kwargs)
@@ -61,12 +73,18 @@ class ShareaboutsApi (object):
 
 @ensure_csrf_cookie
 def index(request, place_id=None):
+    # print("views.index: place_id: %s" % (place_id))
+    print("views.index: place_id: ", place_id)
+    import ipdb
+    ipdb.set_trace()
+
     # Load app config settings
     config = get_shareabouts_config(settings.SHAREABOUTS.get('CONFIG'))
     config.update(settings.SHAREABOUTS.get('CONTEXT', {}))
 
     # Get initial data for bootstrapping into the page.
     dataset_root = settings.SHAREABOUTS.get('DATASET_ROOT')
+    # dataset_root = https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/trees/
     if (dataset_root.startswith('file:')):
         dataset_root = request.build_absolute_uri(reverse('api_proxy', args=('',)))
     api = ShareaboutsApi(dataset_root=dataset_root)
@@ -103,10 +121,15 @@ def index(request, place_id=None):
         })
 
     place = None
+    import ipdb
+    ipdb.set_trace()
+
     if place_id and place_id != 'new':
-        place = api.get('places/' + place_id)
+        # place = api.get('places/' + place_id)
+        place = api.get_from_url('places/' + place_id, dataset_root)
         if place:
             place = json.loads(place)
+    print("view.index: loading place:", place)
 
     context = {'config': config,
 
@@ -366,7 +389,7 @@ def api(request, path, **kwargs):
         dataset_id = kwargs['dataset_id']
     else:
         raise AttributeError("No dataset_id! kwargs, path:", kwargs, path)
-        
+
     root = settings.SHAREABOUTS.get(dataset_id.upper() + '_SITE_URL')
 
     if root.startswith('file://'):
