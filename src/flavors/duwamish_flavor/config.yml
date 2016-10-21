@@ -60,20 +60,11 @@ map:
       attribution: 'Hello World'
       type: basemap
 
-<<<<<<< HEAD
     # Carto basemap additions layer
     - id: additions
       url: https://smartercleanup.cartodb.com/api/v2/viz/3c0197f8-c7d8-11e5-8232-0ecfd53eb7d3/viz.json
       type: cartodb
-=======
     # For our Shareabouts reports
-
-    #############################
-    ## Do we still need this ??
-    - id: reports
-      type: shareabouts
-    ############################# 
->>>>>>> some story experiementation
 
     # Legend Layers
     - id: restoration
@@ -626,7 +617,7 @@ sidebar:
           title: _(Community Data)
           visibleDefault: true
           layers:
-<<<<<<< HEAD
+
             - id: duwamish
               title: _(Duwamish Cleanup Reports)
               visibleDefault: false
@@ -637,14 +628,13 @@ sidebar:
 
             - id: air
               title: _(Air Watch Reports)
-=======
+
             - id: stories
               title: _(Stories)
               visibleDefault: true
 
             - id: reports
               title: _(Community Reports)
->>>>>>> some story experiementation
               visibleDefault: true
 
             - id: cleanup
@@ -1190,6 +1180,7 @@ story:
     # (that is, no default settings will be inherited).
     default_zoom: 13
     default_visible_layers:
+      - cso
       - restoration
       - watershed
       - cso
