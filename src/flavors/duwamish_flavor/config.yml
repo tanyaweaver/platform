@@ -40,7 +40,7 @@ map:
     center:
       lat: 47.53722
       lng: -122.32573
-    zoom: 16
+    zoom: 13
     minZoom: 1
     maxZoom: 18
   layers:
@@ -60,11 +60,11 @@ map:
       attribution: 'Hello World'
       type: basemap
 
-    # Carto basemap additions layer
-    - id: additions
-      url: https://smartercleanup.cartodb.com/api/v2/viz/3c0197f8-c7d8-11e5-8232-0ecfd53eb7d3/viz.json
-      type: cartodb
-    # For our Shareabouts reports
+    - id: stories
+      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
+      type: landmark
+      sources:
+        - "https://a.tiles.mapbox.com/v4/smartercleanup.1dd7pie7/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
 
     # Legend Layers
     - id: restoration
@@ -72,12 +72,6 @@ map:
       type: landmark
       sources:
         - "http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
-
-    - id: stories
-      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
-      type: landmark
-      sources:
-        - "https://a.tiles.mapbox.com/v4/smartercleanup.1dd7pie7/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
 
     - id: duwamish
       type: place
@@ -335,13 +329,6 @@ place_types:
           fillOpacity: '{{properties.fill-opacity}}'
           weight: "{{properties.stroke-width}}"
 
-  star-stroked:
-    zoomType: mapboxZoomStyle
-    rules:
-      - condition: 'true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-star.png
-
   danger:
     zoomType: mapboxZoomStyle
     rules:
@@ -397,6 +384,13 @@ place_types:
       - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-tree.png      
+  
+  star-stroked:
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-star.png    
 
   # # needs a marker
   # farm:
@@ -605,18 +599,21 @@ sidebar:
       basemaps:
         - id: osm
           title: _(OpenStreetMap)
-          visibleDefault: true
+          visibleDefault: false
         - id: satellite
           title: _(Satellite View)
           visibleDefault: false
         - id: dark
           title: _(Dark)
-          visibleDefault: false
+          visibleDefault: true
       groupings:
         - id: grp-community
           title: _(Community Data)
           visibleDefault: true
           layers:
+            - id: stories
+              title: _(Stories)
+              visibleDefault: false
 
             - id: duwamish
               title: _(Duwamish Cleanup Reports)
@@ -624,22 +621,15 @@ sidebar:
 
             - id: trees
               title: _(Trees!)
-              visibleDefault: true
+              visibleDefault: false
 
             - id: air
               title: _(Air Watch Reports)
-
-            - id: stories
-              title: _(Stories)
-              visibleDefault: true
-
-            - id: reports
-              title: _(Community Reports)
-              visibleDefault: true
+              visibleDefault: false
 
             - id: cleanup
               title: _(River Cleanup Plan)
-              visibleDefault: true
+              visibleDefault: false
 
             - id: vision
               title: _(Community Vision)
@@ -647,7 +637,7 @@ sidebar:
 
             - id: restoration
               title: _(Restoration Sites)
-              visibleDefault: true
+              visibleDefault: false
 
         - id: grp-land
           title: _(Land Data)
@@ -675,7 +665,7 @@ sidebar:
               # WRIA9 watershed
             - id: watershed
               title: _(Watershed)
-              visibleDefault: true
+              visibleDefault: false
 
             - id: zoning
               title: _(Zoning)
@@ -1131,6 +1121,7 @@ pages:
   - title: _(About)
     slug: about
     name: overview
+    start_page: true
 
   - title: _(Background)
     slug: background
@@ -1168,7 +1159,6 @@ pages:
     name: terms
     hide_from_top_bar: true
 
-
 # Stories
 
 story:
@@ -1178,14 +1168,29 @@ story:
     # layers defined below. If a story element defines a different 
     # zoom level and/or visible layers, it will use those wholesale 
     # (that is, no default settings will be inherited).
-    default_zoom: 13
+    default_zoom: 14
     default_visible_layers:
-      - cso
-      - restoration
-      - watershed
-      - cso
-      - duwamish-original
+      - 
     order: 
       - url: history
-      - url: skatepark
-      - url: upper-green
+        visible_layers:
+          - duwamish-original
+        zoom: 14
+        panTo:
+          lat: 47.56358
+          lng: -122.32869
+        basemap: satellite
+      - url: blackriver
+        visible_layers:
+          -duwamish-original
+        basemap: osm
+      - url: watershed
+        visible_layers:
+          - watershed
+          - stories
+          - restoration
+        zoom: 11
+        panTo:
+          lat: 47.32649
+          lng: -121.90258
+        basemap: osm
