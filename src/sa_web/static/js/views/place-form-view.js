@@ -135,7 +135,7 @@ var Shareabouts = Shareabouts || {};
       if (this.center) this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
 
       // instantiate appropriate backbone model
-      this.collection[self.formState.selectedDatasetId].add({});
+      this.collection[self.formState.selectedDatasetId].add({"location_type": this.formState.selectedCategory});
     },
     onClickGeolocate: function(evt) {
       var self = this;
@@ -266,11 +266,6 @@ var Shareabouts = Shareabouts || {};
       this.model.save(attrs, {
         success: function() {
           S.Util.log('USER', 'new-place', 'successfully-add-place');
-
-          // add the newly-created model to mergedPlaces,
-          // for use on the place list view
-          self.options.appView.mergedPlaces.add(model);
-
           router.navigate('/'+ model.get('datasetSlug') + '/' + model.id, {trigger: true});
         },
         error: function() {
