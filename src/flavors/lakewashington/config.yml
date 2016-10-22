@@ -590,5 +590,8 @@ story:
       - satellite
     order: 
       - url: lakepointe
+        spotlight: false
       - url: stream0056
+        spotlight: false        
       - url: dioxin
+        spotlight: false      
