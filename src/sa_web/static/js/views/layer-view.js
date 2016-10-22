@@ -6,6 +6,8 @@ var Shareabouts = Shareabouts || {};
   S.LayerView = Backbone.View.extend({
      // A view responsible for the representation of a place on the map.
     initialize: function(){
+      var self = this;
+
       this.map = this.options.map;
       this.isFocused = false;
 
@@ -18,6 +20,13 @@ var Shareabouts = Shareabouts || {};
       this.model.on('unfocus', this.unfocus, this);
 
       this.map.on('zoomend', this.updateLayer, this);
+      // listen for the visibility event, in case this layer view's
+      // layer group is made visible and we need to evaluate zoom style rules
+      $(S).on('visibility', function (evt, id, isVisible) {
+        if (id === self.options.collectionId && isVisible) {
+          self.initLayer();
+        }
+      });
 
       // On map move, adjust the visibility of the markers for max efficiency
       this.map.on('move', this.throttledRender, this);
@@ -83,9 +92,13 @@ var Shareabouts = Shareabouts || {};
       }
     },
     updateLayer: function() {
-      // Update the marker layer if the model changes and the layer exists
-      this.removeLayer();
-      this.initLayer();
+      // only update currently visible layers
+      // this.options.layer is the LayerGroup to which this layer view belongs
+      if (this.map.hasLayer(this.options.layer)) {
+        // Update the marker layer if the model changes and the layer exists
+        this.removeLayer();
+        this.initLayer();
+      }
     },
     removeLayer: function() {
       if (this.layer) {
