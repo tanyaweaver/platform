@@ -710,7 +710,7 @@
               // if this model is part of a story, set center and zoom level
               self.isProgrammaticZoom = true;
               self.setStoryLayerVisibility(model);
-              map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
+              map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true, reset: true});
             } else {
               map.panTo(center, {animate: true, reset: true});
             }
@@ -877,7 +877,7 @@
             if (model.attributes.story) {
               self.isProgrammaticZoom = true;
               self.setStoryLayerVisibility(model);
-              map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
+              map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true, reset: true});
             } else {
               map.panTo(center, {animate: true, reset: true});
             }
