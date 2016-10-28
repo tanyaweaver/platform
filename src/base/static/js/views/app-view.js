@@ -39,6 +39,7 @@
       'click .close-btn': 'onClickClosePanelBtn',
       'click .maximize-btn': 'onClickMaximizeBtn',
       'click .minimize-btn': 'onClickMinimizeBtn'
+      'click .list-toggle-btn': 'toggleListView',
     },
     initialize: function() {
       var self = this,
@@ -65,6 +66,7 @@
       this.placeFormView = null;
       this.placeDetailViews = {};
       this.landmarkDetailViews = {};
+      this.activeDetailView;
 
       // this flag is used to distinguish between user-initiated zooms and
       // zooms initiated by a leaflet method
@@ -79,10 +81,10 @@
         $('#ajax-error-msg').hide();
       });
 
-      $('.list-toggle-btn').click(function(evt){
-        evt.preventDefault();
-        self.toggleListView();
-      });
+      // $('.list-toggle-btn').click(function(evt){
+      //   evt.preventDefault();
+      //   self.toggleListView();
+      // });
 
       if (this.options.activityConfig.show_in_right_panel === true) {
         $("body").addClass("right-sidebar-visible");
@@ -141,6 +143,7 @@
       this.pagesNavView = (new PagesNavView({
               el: '#pages-nav-container',
               pagesConfig: this.options.pagesConfig,
+              placeConfig: this.options.placeConfig,
               router: this.options.router
             })).render();
 
@@ -666,7 +669,7 @@
 
       onLandmarkFound = function(model, response, newOptions) {
         var map = self.mapView.map,
-            layer, center, landmarkDetailView, $responseToScrollTo;
+            layer, center, $responseToScrollTo;
         options = newOptions ? newOptions : options;
 
         layer = self.mapView.layerViews[options.collectionId][model.id].layer
@@ -674,11 +677,14 @@
         if (layer) {
           center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
         }
-        landmarkDetailView = self.getLandmarkDetailView(options.collectionId, model);
+        self.activeDetailView = self.getLandmarkDetailView(options.collectionId, model);
+        self.activeDetailView.isModified = false;
+        self.activeDetailView.isEditingToggled = false;
 
         self.$panel.removeClass().addClass('place-detail place-detail-' + model);
-        self.showPanel(landmarkDetailView.render().$el, false);
-        landmarkDetailView.delegateEvents();
+        self.showPanel(self.activeDetailView.render().$el, false);
+        self.activeDetailView.delegateEvents();
+
         self.hideNewPin();
         self.destroyNewModels();
         self.hideCenterPoint();
@@ -819,7 +825,7 @@
 
       onPlaceFound = function(model) {
         var map = self.mapView.map,
-            layer, center, placeDetailView, $responseToScrollTo;
+            layer, center, $responseToScrollTo;
 
         // If this model is a duplicate of one that already exists in the
         // places collection, it may not correspond to a layerView. For this
@@ -834,15 +840,17 @@
           layer = self.mapView.layerViews[datasetId][model.cid].layer;
         }
 
-        placeDetailView = self.getPlaceDetailView(model);
+        self.activeDetailView = self.getPlaceDetailView(model);
+        self.activeDetailView.isModified = false;
+        self.activeDetailView.isEditingToggled = false;
 
         if (layer) {
           center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
         }
 
         self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
-        self.showPanel(placeDetailView.render().$el, !!responseId);
-        placeDetailView.delegateEvents();
+        self.showPanel(self.activeDetailView.render().$el, !!responseId);
+        self.activeDetailView.delegateEvents();
         // TODO(Trevor): prevent default form behavior when in editing mode
 
         self.hideNewPin();
@@ -879,7 +887,7 @@
 
         if (responseId) {
           // get the element based on the id
-          $responseToScrollTo = placeDetailView.$el.find('[data-response-id="'+ responseId +'"]');
+          $responseToScrollTo = self.activeDetailView.$el.find('[data-response-id="'+ responseId +'"]');
 
           // call scrollIntoView()
           if ($responseToScrollTo.length > 0) {
@@ -956,14 +964,6 @@
       this.setBodyClass('content-visible', 'content-expanded');
     },
     showPanel: function(markup, preventScrollToTop) {
-      console.log("show panel");
-
-      // if new panel content would replace an open, unsaved place detail
-      // view in editor mode, we need to stop the new content from being inserted
-      // and prompt the user
-      console.log("this.$panel", this.$panel);
-      if (this.$panel.hasClass("place-detail")) { console.log("replacing place detail") }
-
       var map = this.mapView.map;
 
       this.unfocusAllPlaces();
@@ -1098,12 +1098,9 @@
     },
     toggleListView: function() {
       if (this.listView.isVisible()) {
-        this.viewMap();
-        this.hideListView();
-        this.options.router.navigate('');
+        this.options.router.navigate('/', {"trigger": true});
       } else {
-        this.showListView();
-        this.options.router.navigate('list');
+        this.options.router.navigate('list', {"trigger": true});
       }
       this.mapView.clearFilter();
     }
