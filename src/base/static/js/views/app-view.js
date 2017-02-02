@@ -338,6 +338,7 @@
           layers: this.options.mapConfig.layers,
           storyConfig: this.options.storyConfig,
           activityConfig: this.options.activityConfig,
+          activityView: this.activityView,
           appView: this,
           layerViews: this.mapView.layerViews
 
