@@ -639,7 +639,7 @@ place:
       name: location_type
       dataset: bogtobay
       icon_url: /static/css/images/markers/marker-pledge.png
-      value: featured_sites
+      value: star-stroked
       label: _(Featured Sites)
       fields:
         - name: title
@@ -649,7 +649,7 @@ place:
           placeholder: _(Enter title)
           optional: false
         - name: description
-          type: textarea
+          type: richTextarea
           prompt: _(Description:)
           display_prompt: _(Description:)
           optional: true
