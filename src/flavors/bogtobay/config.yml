@@ -79,20 +79,6 @@ map:
       type: place
       slug: bogtobay
 
-      # Land Use
-    # - id: stories
-    #   url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
-    #   sources:
-    #     - "https://raw.githubusercontent.com/mapseed/data/master/b2b.geojson"
-    #   type: landmark
-
-      # Land Use
-    - id: stories
-      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
-      sources:
-        - "https://raw.githubusercontent.com/mapseed/data/master/b2b.geojson"
-      type: landmark
-
        # WRIA9 watershed
     - id: watershed
       type: cartodb
@@ -635,6 +621,7 @@ place:
   #### begin dynamic form config ####
   place_detail:
     - category: star-stroked
+      enable_geometry: true
       includeOnForm: true
       name: location_type
       dataset: bogtobay
