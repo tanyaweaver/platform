@@ -11,6 +11,7 @@ var Shareabouts = Shareabouts || {};
       ':dataset/:id': 'viewPlace',
       'new': 'newPlace',
       ':dataset/:id/response/:response_id': 'viewPlace',
+      ':id/response/:response_id': 'viewLandmark',
       ':dataset/:id/edit': 'editPlace',
       'list': 'showList',
       ':id': 'viewLandmark',

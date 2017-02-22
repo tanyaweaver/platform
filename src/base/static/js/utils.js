@@ -418,6 +418,7 @@ var Shareabouts = Shareabouts || {};
           } catch (e) {
             // ignore exceptions
           }
+
           return null;
         }
 

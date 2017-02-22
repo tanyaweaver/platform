@@ -429,9 +429,6 @@ var Shareabouts = Shareabouts || {};
     },
     onClickClosePanelBtn: function(evt) {
       evt.preventDefault();
-      if (this.placeFormView) {
-        this.placeFormView.closePanel();
-      }
 
       $(".maximize-btn").show();
       $(".minimize-btn").hide();
@@ -498,6 +495,8 @@ var Shareabouts = Shareabouts || {};
         delete this.placeDetailViews[model.cid];
       }
     },
+
+    // TODO: clean up landmark/place distinction here
     getLandmarkDetailView: function(collectionId, model) {
       var landmarkDetailView;
       if (this.landmarkDetailViews[collectionId] && this.landmarkDetailViews[collectionId][model.id]) {
@@ -515,13 +514,15 @@ var Shareabouts = Shareabouts || {};
       }
       return landmarkDetailView;
     },
-    getPlaceDetailView: function(model) {
+    getPlaceDetailView: function(model, layerView) {
       var placeDetailView;
       if (this.placeDetailViews[model.cid]) {
         placeDetailView = this.placeDetailViews[model.cid];
       } else {
         placeDetailView = new S.PlaceDetailView({
           model: model,
+          appView: this,
+          layerView: layerView,
           surveyConfig: this.options.surveyConfig,
           supportConfig: this.options.supportConfig,
           placeConfig: this.options.placeConfig,
@@ -530,9 +531,11 @@ var Shareabouts = Shareabouts || {};
           placeTypes: this.options.placeTypes,
           userToken: this.options.userToken,
           mapView: this.mapView,
+          geometryEditorView: this.mapView.geometryEditorView,
           router: this.options.router,
-          url: _.find(this.options.mapConfig.layers, function(layer) { return layer.slug == model.attributes.datasetSlug }).url,
-          datasetId: _.find(this.options.mapConfig.layers, function(layer) { return layer.slug == model.attributes.datasetSlug }).id
+          datasetId: _.find(this.options.mapConfig.layers, function(layer) { 
+            return layer.slug == model.attributes.datasetSlug 
+          }).id
         });
         this.placeDetailViews[model.cid] = placeDetailView;
       }
@@ -576,6 +579,7 @@ var Shareabouts = Shareabouts || {};
           placeConfig: this.options.placeConfig,
           mapConfig: this.options.mapConfig,
           userToken: this.options.userToken,
+          geometryEditorView: this.mapView.geometryEditorView,
           // only need to send place collection, since all data added will be a place of some kind
           collection: this.places
         });
@@ -657,7 +661,7 @@ var Shareabouts = Shareabouts || {};
 
       onLandmarkFound = function(model, response, newOptions) {
         var map = self.mapView.map,
-            layer, center, $responseToScrollTo;
+            layer, center, landmarkDetailView, $responseToScrollTo;
         options = newOptions ? newOptions : options;
 
         layer = self.mapView.layerViews[options.collectionId][model.id].layer
@@ -665,14 +669,11 @@ var Shareabouts = Shareabouts || {};
         if (layer) {
           center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
         }
-        self.activeDetailView = self.getLandmarkDetailView(options.collectionId, model);
-        self.activeDetailView.isModified = false;
-        self.activeDetailView.isEditingToggled = false;
+        landmarkDetailView = self.getLandmarkDetailView(options.collectionId, model);
 
         self.$panel.removeClass().addClass('place-detail place-detail-' + model);
-        self.showPanel(self.activeDetailView.render().$el, false);
-        self.activeDetailView.delegateEvents();
-
+        self.showPanel(landmarkDetailView.render().$el, false);
+        landmarkDetailView.delegateEvents();
         self.hideNewPin();
         self.destroyNewModels();
         self.hideCenterPoint();
@@ -698,7 +699,7 @@ var Shareabouts = Shareabouts || {};
               // if this model is part of a story, set center and zoom level
               self.isProgrammaticZoom = true;
               self.setStoryLayerVisibility(model);
-              map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true, reset: true});
+              map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
             } else {
               map.panTo(center, {animate: true, reset: true});
             }
@@ -800,6 +801,7 @@ var Shareabouts = Shareabouts || {};
         })
       }
     },
+
     viewPlace: function(datasetSlug, model, responseId, zoom) {
       var self = this,
           includeSubmissions = S.Config.flavor.app.list_enabled !== false,
@@ -828,7 +830,7 @@ var Shareabouts = Shareabouts || {};
           layer = self.mapView.layerViews[datasetId][model.cid].layer;
         }
 
-        self.activeDetailView = self.getPlaceDetailView(model);
+        self.activeDetailView = self.getPlaceDetailView(model, self.mapView.layerViews[datasetId][model.cid]);
         self.activeDetailView.isModified = false;
         self.activeDetailView.isEditingToggled = false;
 
@@ -935,6 +937,7 @@ var Shareabouts = Shareabouts || {};
         });
       }
     },
+
     viewPage: function(slug) {
       var pageConfig = S.Util.findPageConfig(this.options.pagesConfig, {slug: slug}),
           pageTemplateName = 'pages/' + (pageConfig.name || pageConfig.slug),
@@ -951,6 +954,7 @@ var Shareabouts = Shareabouts || {};
       this.hideCenterPoint();
       this.setBodyClass('content-visible', 'content-expanded');
     },
+
     showPanel: function(markup, preventScrollToTop) {
       var map = this.mapView.map;
 
