@@ -89,7 +89,7 @@
       // merged together, for sorting and filtering purposes
       this.collection = new PlaceCollection([]);
 
-      this.unrenderedItems = new S.PlaceCollection([]);
+      this.unrenderedItems = new PlaceCollection([]);
 
       _.each(this.options.placeCollections, function(collection) {
         collection.on("add", self.addModel, self);
@@ -264,7 +264,7 @@
 
         var submitter,
             locationType = model.get("location_type"),
-            placeConfig = _.find(S.Config.place.place_detail, function(config) { return config.category === locationType });
+            placeConfig = _.find(Shareabouts.Config.place.place_detail, function(config) { return config.category === locationType });
 
         // Check whether the remaining models match the search term
         for (var i = 0; i < placeConfig.fields.length; i++) {
