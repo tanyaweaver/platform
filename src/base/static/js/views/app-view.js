@@ -703,7 +703,7 @@
         self.destroyNewModels();
         self.hideCenterPoint();
         self.setBodyClass('content-visible');
-        self.addSpotlightMask();
+        self.showSpotlightMask();
 
         if (layer) {
           center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
@@ -786,11 +786,13 @@
             var model = syncedCollection.where(searchTerm);
             if (model.length === 1) {
               foundInCallback = true;
+              collection.off("sync");
               onFound(model[0], type, datasetId);
             } else if (numCollections === i && finalCollection && !foundInCallback) {
               // if this is the last collection of the set and the final
               // set of collections and no model has been found, it means the
               // model doesn't exist.
+              collection.off("sync");
               onNotFound();
             }
           });
