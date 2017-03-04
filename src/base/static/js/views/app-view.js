@@ -13,6 +13,7 @@
   var PlaceDetailView = require('mapseed-place-detail-view');
   var PlaceFormView = require('mapseed-place-form-view');
   var GeocodeAddressPlaceView = require('mapseed-geocode-address-place-view');
+  var RightSidebarView = require('mapseed-right-sidebar-view');
 
   // Models
   var PlaceModel = require('../models/place-model.js');
@@ -324,9 +325,8 @@
       });
 
       if (this.options.rightSidebarConfig.show) {
-        this.setBodyClass("right-sidebar-active");
-        this.setBodyClass("right-sidebar-visible");
-        new S.RightSidebarView({
+        $("body").addClass("right-sidebar-active right-sidebar-visible");
+        new RightSidebarView({
           el: "#right-sidebar-content",
           router: this.options.router,
           rightSidebarConfig: this.options.rightSidebarConfig,
@@ -359,10 +359,10 @@
           var deferred = self.landmarks[landmarkConfig.id].fetch({
             attributesToAdd: { location_type: landmarkConfig.placeType },
           });
-          S.deferredCollections.push(deferred);
+          Shareabouts.deferredCollections.push(deferred);
         } else {
           var deferred = self.landmarks[landmarkConfig.id].fetch();
-          S.deferredCollections.push(deferred);
+          Shareabouts.deferredCollections.push(deferred);
         }
       });
     },
@@ -411,7 +411,7 @@
             }
           }
         });
-        S.deferredCollections.push(deferred);
+        Shareabouts.deferredCollections.push(deferred);
       });
     },
 
@@ -490,8 +490,7 @@
       this.mapView.map.invalidateSize({ animate:true, pan:true });
     },
     onToggleSidebarVisibility: function() {
-      //$("body").toggleClass("right-sidebar-visible");
-      $("body").toggleClass("right-sidebar-collapsed");
+      $("body").toggleClass("right-sidebar-visible");
       this.mapView.map.invalidateSize();
     },
     setBodyClass: function(/* newBodyClasses */) {
