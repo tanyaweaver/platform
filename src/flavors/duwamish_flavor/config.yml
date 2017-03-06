@@ -89,10 +89,6 @@ map:
       type: place
       slug: trees
 
-    - id: air
-      type: place
-      slug: air
-
     - id: vision
       type: place
       slug: vision
@@ -594,10 +590,6 @@ sidebar:
 
             - id: trees
               title: _(Trees!)
-              visibleDefault: false
-
-            - id: air
-              title: _(Air Watch Reports)
               visibleDefault: false
 
             - id: vision
@@ -1420,10 +1412,7 @@ story:
     default_zoom: 17
     default_visible_layers:
       - restoration
-      - trees
     order:
-      - url: trees/187
-      - url: trees/276
       - url: marra
       - url: skatepark
       - url: concord
