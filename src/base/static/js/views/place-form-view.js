@@ -129,19 +129,6 @@
         self.formState.commonFormElements[i].autocompleteValue = storedValue || null;
       });
     },
-    checkAutocomplete: function() {
-      var self = this,
-      storedValue;
-
-      this.formState.selectedCategoryConfig.fields.forEach(function(field, i) {
-        storedValue = S.Util.getAutocompleteValue(field.name);
-        self.formState.selectedCategoryConfig.fields[i].autocompleteValue = storedValue || null;
-      });
-      this.formState.commonFormElements.forEach(function(field, i) {
-        storedValue = S.Util.getAutocompleteValue(field.name);
-        self.formState.commonFormElements[i].autocompleteValue = storedValue || null;
-      });
-    },
     remove: function() {
       this.unbind();
     },
@@ -170,7 +157,7 @@
           locationAttr = this.options.placeConfig.location_item_name,
           $form = this.$('form');
 
-      attrs = S.Util.getAttrs($form); 
+      attrs = Util.getAttrs($form); 
 
       // get values off of binary toggle buttons that have not been toggled
       $.each($("input[data-input-type='binary_toggle']:not(:checked)"), function() {
