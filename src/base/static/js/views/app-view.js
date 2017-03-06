@@ -695,10 +695,6 @@
         }
 
         self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
-        self.showPanel(self.activeDetailView.render().$el, !!responseId);
-        self.activeDetailView.delegateEvents();
-        // TODO(Trevor): prevent default form behavior when in editing mode
-
         self.hideNewPin();
         self.destroyNewModels();
         self.hideCenterPoint();
