@@ -129,6 +129,19 @@
         self.formState.commonFormElements[i].autocompleteValue = storedValue || null;
       });
     },
+    checkAutocomplete: function() {
+      var self = this,
+      storedValue;
+
+      this.formState.selectedCategoryConfig.fields.forEach(function(field, i) {
+        storedValue = S.Util.getAutocompleteValue(field.name);
+        self.formState.selectedCategoryConfig.fields[i].autocompleteValue = storedValue || null;
+      });
+      this.formState.commonFormElements.forEach(function(field, i) {
+        storedValue = S.Util.getAutocompleteValue(field.name);
+        self.formState.commonFormElements[i].autocompleteValue = storedValue || null;
+      });
+    },
     remove: function() {
       this.unbind();
     },
