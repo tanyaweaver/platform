@@ -709,7 +709,7 @@ place:
         - name: description
           type: richTextarea
           prompt: _(Description of this pollution:)
-          display_prompt: _(Further description:)
+          display_prompt: _( )
           placeholder: _(Enter description...)
           optional: false
     - category: wetland
@@ -729,7 +729,7 @@ place:
         - name: description
           type: richTextarea
           prompt: _(Description of this pollution:)
-          display_prompt: _(Further description:)
+          display_prompt: _( )
           placeholder: _(Enter description...)
           optional: false
     - category: park
@@ -749,7 +749,7 @@ place:
         - name: description
           type: richTextarea
           prompt: _(Description of this pollution:)
-          display_prompt: _(Further description:)
+          display_prompt: _( )
           placeholder: _(Enter description...)
           optional: false
     - category: school
@@ -769,7 +769,7 @@ place:
         - name: description
           type: richTextarea
           prompt: _(Description of this pollution:)
-          display_prompt: _(Further description:)
+          display_prompt: _( )
           placeholder: _(Enter description...)
           optional: false
     - category: police
@@ -789,7 +789,7 @@ place:
         - name: description
           type: richTextarea
           prompt: _(Description of this pollution:)
-          display_prompt: _(Further description:)
+          display_prompt: _( )
           placeholder: _(Enter description...)
           optional: false
     - category: rail
@@ -809,7 +809,7 @@ place:
         - name: description
           type: richTextarea
           prompt: _(Description of this pollution:)
-          display_prompt: _(Further description:)
+          display_prompt: _( )
           placeholder: _(Enter description...)
           optional: false
     - category: town-hall
@@ -829,7 +829,7 @@ place:
         - name: description
           type: richTextarea
           prompt: _(Description of this pollution:)
-          display_prompt: _(Further description:)
+          display_prompt: _( )
           placeholder: _(Enter description...)
           optional: false
     - category: danger
@@ -849,7 +849,7 @@ place:
         - name: description
           type: richTextarea
           prompt: _(Description of this pollution:)
-          display_prompt: _(Further description:)
+          display_prompt: _( )
           placeholder: _(Enter description...)
           optional: false
     - category: park2
@@ -869,7 +869,7 @@ place:
         - name: description
           type: richTextarea
           prompt: _(Description of this pollution:)
-          display_prompt: _(Further description:)
+          display_prompt: _( )
           placeholder: _(Enter description...)
           optional: false
     - category: industrial
@@ -889,7 +889,7 @@ place:
         - name: description
           type: richTextarea
           prompt: _(Description of this pollution:)
-          display_prompt: _(Further description:)
+          display_prompt: _( )
           placeholder: _(Enter description...)
           optional: false
     - category: bicycle
@@ -909,7 +909,7 @@ place:
         - name: description
           type: richTextarea
           prompt: _(Description of this pollution:)
-          display_prompt: _(Further description:)
+          display_prompt: _( )
           placeholder: _(Enter description...)
           optional: false
     - category: swimming
@@ -929,7 +929,7 @@ place:
         - name: description
           type: richTextarea
           prompt: _(Description of this pollution:)
-          display_prompt: _(Further description:)
+          display_prompt: _( )
           placeholder: _(Enter description...)
           optional: false
     - category: theatre
@@ -949,7 +949,7 @@ place:
         - name: description
           type: richTextarea
           prompt: _(Description of this pollution:)
-          display_prompt: _(Further description:)
+          display_prompt: _( )
           placeholder: _(Enter description...)
           optional: false
     - category: zoo
@@ -969,7 +969,7 @@ place:
         - name: description
           type: richTextarea
           prompt: _(Description of this pollution:)
-          display_prompt: _(Further description:)
+          display_prompt: _( )
           placeholder: _(Enter description...)
           optional: false
     - category: observation
@@ -1005,7 +1005,7 @@ place:
         - name: description
           type: textarea
           prompt: _(Description of this pollution:)
-          display_prompt: _(Further description:)
+          display_prompt: _( )
           placeholder: _(Enter description...)
           optional: false
     - category: question
