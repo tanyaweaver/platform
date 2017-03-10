@@ -669,7 +669,7 @@
 
       onFound = function(model, type, datasetId) {
         var map = self.mapView.map,
-          layer, center, zoom, detailView, $responseToScrollTo;
+          layer, center, zoom, $responseToScrollTo;
 
         if (type === "place") {
           // If this model is a duplicate of one that already exists in the
@@ -686,12 +686,16 @@
             layer = self.mapView.layerViews[datasetId][model.cid].layer;
           }
 
-          detailView = self.getPlaceDetailView(model).delegateEvents();
-          self.showPanel(detailView.render().$el, !!args.responseId);
+          self.activeDetailView = self.getPlaceDetailView(model).delegateEvents();
+          self.activeDetailView.isModified = false;
+          self.activeDetailView.isEditingToggled = false;
+          self.showPanel(self.activeDetailView.render().$el, !!args.responseId);
         } else if (type === "landmark") {
           layer = self.mapView.layerViews[datasetId][model.id].layer;
-          detailView = self.getLandmarkDetailView(datasetId, model).delegateEvents();
-          self.showPanel(detailView.render().$el, false);
+          self.activeDetailView = self.getLandmarkDetailView(datasetId, model).delegateEvents();
+          self.activeDetailView.isModified = false;
+          self.activeDetailView.isEditingToggled = false;
+          self.showPanel(self.activeDetailView.render().$el, false);
         }
 
         self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
