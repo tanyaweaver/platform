@@ -676,6 +676,20 @@
     #powered-by {
         margin-bottom: 0;
     }
+
+    // place the promotion bar (support button and social media links) on a single
+    // line at large screen sizes
+    .promotion {
+        margin-top: 0.5em;
+
+        .support {
+            float: right;
+            margin-left: 15px;
+        }
+        .social {
+            float: left;
+        }
+    }
 }
 
 @media only screen and (min-width: 80em) {
