@@ -686,16 +686,18 @@
             layer = self.mapView.layerViews[datasetId][model.cid].layer;
           }
 
-          self.activeDetailView = self.getPlaceDetailView(model).delegateEvents();
+          self.activeDetailView = self.getPlaceDetailView(model);
           self.activeDetailView.isModified = false;
           self.activeDetailView.isEditingToggled = false;
           self.showPanel(self.activeDetailView.render().$el, !!args.responseId);
+          self.activeDetailView.delegateEvents();
         } else if (type === "landmark") {
           layer = self.mapView.layerViews[datasetId][model.id].layer;
           self.activeDetailView = self.getLandmarkDetailView(datasetId, model).delegateEvents();
           self.activeDetailView.isModified = false;
           self.activeDetailView.isEditingToggled = false;
           self.showPanel(self.activeDetailView.render().$el, false);
+          self.activeDetailView.delegateEvents();
         }
 
         self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);

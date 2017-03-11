@@ -157,7 +157,6 @@
       // Fetch for submissions and automatically update the element
       this.model.submissionSets[this.supportType].fetchAllPages();
 
-      this.delegateEvents();
       this.surveyView.delegateEvents();
 
       $("#content article").animate({ scrollTop: 0 }, "fast");
