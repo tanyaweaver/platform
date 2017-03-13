@@ -22,15 +22,10 @@
   {% block meta %}{% endblock %}
 
   <!-- google sign-in meta tag: Specify your app's client ID -->
-  <!-- <meta name="google-signin-client_id" content="378126236108-qtsmj2uukue5mo5m5mbirbu85pvh2dr5.apps.googleusercontent.com"> -->
+  <meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id" content="378126236108-qtsmj2uukue5mo5m5mbirbu85pvh2dr5.apps.googleusercontent.com">
   <!-- google sign-in: Load the Google Platform Library -->
-  <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
-
-  <!-- <script>
-    gapi.load('auth2', function(){
-      gapi.auth2.init();
-    })
-  </script> -->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
 
   <!-- Mobile Viewport Fix -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
