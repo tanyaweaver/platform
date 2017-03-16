@@ -1,3 +1,10 @@
+        {{#if isResolved}}
+          <div class="resolved-message-container">
+            <p class="resolved-message">{{#_}}Resolved{{/_}}</p>
+            <p class="resolved-message-date">{{#_}}This issue was resolved two months ago.{{/_}}</p>
+          </div>
+        {{/if}}
+
         {{> place-detail-story-bar }}
 
         {{> place-detail-promotion-bar }}

@@ -427,3 +427,23 @@ a.auth-inline {
     }
 }
 
+/* issue reolution bar */
+.resolved-message-container {
+    background-color: #5cb85c;
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.resolved-message {
+    margin: 0;
+    color: #FFF;
+    font-weight: bold;
+}
+
+.resolved-message-date {
+    margin: 0;
+    color: #FFF;
+    font-weight: normal;
+}
