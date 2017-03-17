@@ -676,6 +676,22 @@
     #powered-by {
         margin-bottom: 0;
     }
+
+    // reorient add a report and stories buttons to bottom left when content 
+    // panel is open
+    .content-visible #main-btns-container {
+        top: calc(100% - 85px);
+        left: 15px;
+        display: block;
+    }
+
+    .place-form-visible #main-btns-container {
+        display: none !important;
+    }
+
+    .content-expanded-mid #main-btns-container {
+        display: none !important;
+    }
 }
 
 @media only screen and (min-width: 80em) {
