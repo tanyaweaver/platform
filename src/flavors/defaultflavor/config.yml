@@ -56,12 +56,49 @@ map:
       url: //api.mapbox.com/styles/v1/smartercleanup/cis9wdf5h003w2xt6atlz48yh/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: 'Hello World'
 
+    - id: scenario-a
+      type: esri-feature
+      url: http://gismaps.kingcounty.gov/arcgis/rest/services/Hydro/watershed_boundary/MapServer/0
+      attribution: 'Hello World'
+
+    - id: scenario-b
+      type: esri-feature
+      url: http://gismaps.kingcounty.gov/arcgis/rest/services/Hydro/watershed_boundary/MapServer/0
+      attribution: 'Hello World'
+
+    - id: scenario-markers
+      type: esri-feature
+      url: //raw.githubusercontent.com/mapseed/data/master/scenario-demo.geojson
+      attribution: 'Hello World'
+
     - id: duwamish
       type: place
       slug: report
 
 # The values map the place type to map icons (defined below).
 place_types:
+
+  mapboxZoomStyle:
+    - condition: '{{layer.focused}} === true'
+      icon:
+        iconSize: [50, 50]
+        iconAnchor: [25, 25]
+    - condition: '{{map.zoom}} < 16'
+      icon:
+        iconSize: [20, 20]
+        iconAnchor: [10, 10]
+    - condition: '{{map.zoom}} >= 16'
+      icon:
+        iconSize: [30, 30]
+        iconAnchor: [15, 15]
+
+  star:
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-star.png
+
   observation:
     label: _(Observation)
     rules:
@@ -182,37 +219,6 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-  greenwall:
-    label: _(Green Screen Vote)
-    rules:
-      - condition: '{{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: '{{map.zoom}} < 15'
-        icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: '{{map.zoom}} < 18'
-        icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          iconSize: [18, 21.75]
-          iconAnchor: [9, 21.75]
-
-      - condition: '{{map.zoom}} >= 18'
-        icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-
 # Sidebar and activity stream should be enabled and disabled together!
 # note: sidebar is aka 'MasterLegend'
 # TODO: Couple the sidebar and activity stream because the activity stream is a component of the sidebar
@@ -246,6 +252,15 @@ sidebar:
             - id: duwamish
               title: _(Community Reports)
               visibleDefault: true
+            - id: scenario-a
+              title: _(Scenario A)
+              visibleDefault: false
+            - id: scenario-b
+              title: _(Scenario B)
+              visibleDefault: false
+            - id: scenario-markers
+              title: _(Scenario markers)
+              visibleDefault: false
 
     - id: ticker
       view: ActivityView
