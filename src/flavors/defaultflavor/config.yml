@@ -67,8 +67,11 @@ map:
       attribution: 'Hello World'
 
     - id: scenario-markers
-      type: esri-feature
-      url: //raw.githubusercontent.com/mapseed/data/master/scenario-demo.geojson
+      type: landmark
+      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
+      sources:
+        - https://raw.githubusercontent.com/mapseed/data/master/scenario-demo.geojson
+
       attribution: 'Hello World'
 
     - id: duwamish
