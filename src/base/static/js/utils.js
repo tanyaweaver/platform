@@ -29,6 +29,67 @@ var self = module.exports = {
       }
     },
 
+    // Given a model, update social media meta tags with the model's information,
+    // or generic information from the appConfig as a fallback.
+    updateSocialMetaTags: function(model, appConfig) {
+      var siteName = appConfig.title,
+          title = model.get("title") ||
+                  model.get("name") || 
+                  appConfig.title,
+          description = model.get("description") || 
+                        appConfig.meta_description,
+          imgSrc = (model.get("attachments").length > 0) ?
+                    model.get("attachments")[0].file :
+                    appConfig.thumbnail,
+          submitter = model.get("submitter");
+
+      // Twitter meta tags
+      $("meta[name='twitter:title']").attr("content", title);
+      $("meta[name='twitter:description']").attr("content", description);
+      $("meta[name='twitter:img:src']").attr("content", imgSrc);
+      $("meta[name='twitter:creator']").attr("content", submitter);
+
+      // Facebook meta tags
+      $("meta[name='og:site_name']").attr("content", siteName);
+      $("meta[name='og:title']").attr("content", title);
+      $("meta[name='og:description']").attr("content", description);
+      $("meta[name='og:image']").attr("content", imgSrc);
+
+      return title;
+    },
+
+    getPathname: function(model) {
+      if (model.get("url-title")) {
+        return model.get("url-title");
+      } else if (model.get("datasetSlug")) {
+        return model.get("datasetSlug") + "/" + model.get("id");
+      } else {
+        return model.get("id");
+      }
+    },
+
+    onSocialShare: function(model, service) {
+      var appConfig = Shareabouts.Config.app,
+          title = this.updateSocialMetaTags(model, appConfig),
+          protocol = window.location.protocol,
+          host = window.location.host,
+          pathname = this.getPathname(model),
+          url = [protocol, "//", host, "/", pathname].join(""),
+          shareUrl;
+
+      if (service === "twitter") {
+        shareUrl = ["https://twitter.com/intent/tweet?url=",
+                    url,
+                    "&text=",
+                    title].join("");
+      } else if (service === "facebook") {
+        shareUrl = ["https://www.facebook.com/sharer/sharer.php?u=",
+                    url].join("");
+      }
+
+      window.open(shareUrl, "_blank");
+    },
+
     // Given the information provided in a url (that is, an id and possibly a slug),
     // attempt to find the corresponding model within all collections on the page.
     // Three conditions are possible:

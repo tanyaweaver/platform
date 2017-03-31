@@ -22,6 +22,10 @@
       'hide': 'hide',
       'change': 'render'
     },
+    events: {
+      'click .share-twitter': 'onShareTwitter',
+      'click .share-facebook': 'onShareFacebook'
+    },
     initialize: function() {
       var supportType = Shareabouts.Config.support.submission_type;
 
@@ -36,6 +40,12 @@
         supportConfig: Shareabouts.Config.support,
         userToken: Shareabouts.Config.userToken
       });
+    },
+    onShareTwitter: function() {
+      Util.onSocialShare(this.model, "twitter");
+    },
+    onShareFacebook: function() {
+      Util.onSocialShare(this.model, "facebook");
     },
     onBeforeRender: function() {
       // if an attachmentCollection has models in it, make sure the place

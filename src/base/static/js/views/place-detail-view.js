@@ -8,7 +8,9 @@
   module.exports = Backbone.View.extend({
     events: {
       'click .place-story-bar .btn-previous-story-nav': 'onClickStoryPrevious',
-      'click .place-story-bar .btn-next-story-nav': 'onClickStoryNext'
+      'click .place-story-bar .btn-next-story-nav': 'onClickStoryNext',
+      'click .share-twitter': 'onShareTwitter',
+      'click .share-facebook': 'onShareFacebook'
     },
     initialize: function() {
       var self = this;
@@ -52,6 +54,14 @@
 
         Util.log('USER', 'place', shareTo, self.model.getLoggingDetails());
       });
+    },
+
+    onShareTwitter: function() {
+      Util.onSocialShare(this.model, "twitter");
+    },
+
+    onShareFacebook: function() {
+      Util.onSocialShare(this.model, "facebook");
     },
 
     onClickStoryPrevious: function() {

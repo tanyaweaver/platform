@@ -253,14 +253,6 @@
     return result;
   });
 
-  Handlebars.registerHelper('place_url', function(place_id) {
-    var l = window.location,
-        protocol = l.protocol,
-        host = l.host;
-
-    return [protocol, '//', host, '/place/', place_id].join('');
-  });
-
 // Get the current url
 Handlebars.registerHelper('windowLocation', function(place_id) {
   return window.location;
