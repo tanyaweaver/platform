@@ -202,6 +202,7 @@ module.exports = Backbone.View.extend({
       .css("top", (evt.pageY + 30) + "px")
     $(".sp-picker-container").toggleClass("hidden");
     this.setGeometryToolbarHighlighting(evt.currentTarget);
+    this.setDefaultCursor();
   },
 
   onClickCreateMarker: function(evt) {
@@ -226,6 +227,7 @@ module.exports = Backbone.View.extend({
     this.layerType = "marker";
     this.setGeometryToolbarHighlighting(evt.currentTarget);
     this.displayHelpMessage("draw-marker-geometry-msg");
+    this.setEditingCursor();
   },
 
   onClickCreatePolyline: function(evt) {
@@ -248,6 +250,7 @@ module.exports = Backbone.View.extend({
     this.layerType = "polyline";
     this.setGeometryToolbarHighlighting(evt.currentTarget);
     this.displayHelpMessage("draw-poly-geometry-start-msg");
+    this.setEditingCursor();
   },
 
   onClickCreatePolygon: function(evt) {
@@ -272,6 +275,7 @@ module.exports = Backbone.View.extend({
     this.layerType = "polygon";
     this.setGeometryToolbarHighlighting(evt.currentTarget);
     this.displayHelpMessage("draw-poly-geometry-start-msg");
+    this.setEditingCursor();
   },
 
   onClickEditGeometry: function(evt) {
@@ -285,6 +289,7 @@ module.exports = Backbone.View.extend({
       this.resetWorkingGeometry();
       this.setGeometryToolbarHighlighting(evt.target);
       this.displayHelpMessage("modify-geometry-msg");
+      this.setDefaultCursor();
     } else {
       this.workingGeometry = new L.EditToolbar.Edit(this.map, {
         featureGroup: this.editingLayerGroup
@@ -312,6 +317,7 @@ module.exports = Backbone.View.extend({
     this.displayHelpMessage("create-new-geometry-msg");
     this.hideColorpicker();
     this.resetGeometryToolbarHighlighting();
+    this.setDefaultCursor();
   },
 
   // ========== Helpers ==========
@@ -402,6 +408,14 @@ module.exports = Backbone.View.extend({
     targetLayerGroup.addLayer(layer);
   },
 
+  setEditingCursor: function() {
+    $(".leaflet-container").addClass("add-edit-cursor");
+  },
+
+  setDefaultCursor: function() {
+    $(".leaflet-container").removeClass("add-edit-cursor");
+  },
+
   // ========== Render and tear down ==========
   render: function(args) {
     
@@ -461,6 +475,7 @@ module.exports = Backbone.View.extend({
     });
 
     this.removeLayerFromMap(this.editingLayerGroup);
+    this.setDefaultCursor();
 
     $(".sp-picker-container").addClass("hidden");
   }
