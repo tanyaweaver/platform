@@ -178,6 +178,8 @@ module.exports = Backbone.View.extend({
 
   // ========== Toolbar handlers ==========
   onClickColorEditModeChange: function(evt) {
+    evt.preventDefault();
+
     var editMode = $(evt.target).data("edit-mode");
 
     $(evt.target)
@@ -190,6 +192,8 @@ module.exports = Backbone.View.extend({
   },
 
   onClickColorpicker: function(evt) {
+    evt.preventDefault();
+
     this.saveWorkingGeometry();
     this.resetWorkingGeometry();
     this.updateColorpicker();
@@ -197,10 +201,11 @@ module.exports = Backbone.View.extend({
       .css("left", (evt.pageX - 100) + "px")
       .css("top", (evt.pageY + 30) + "px")
     $(".sp-picker-container").toggleClass("hidden");
-    this.setGeometryToolbarHighlighting(evt.target);
+    this.setGeometryToolbarHighlighting(evt.currentTarget);
   },
 
   onClickCreateMarker: function(evt) {
+    evt.preventDefault();
 
     // Prevent repeat clicks on the same geometry drawing tool
     if (this.layerType === "marker") return;
@@ -219,11 +224,12 @@ module.exports = Backbone.View.extend({
     this.workingGeometry.enable();
 
     this.layerType = "marker";
-    this.setGeometryToolbarHighlighting(evt.target);
+    this.setGeometryToolbarHighlighting(evt.currentTarget);
     this.displayHelpMessage("draw-marker-geometry-msg");
   },
 
   onClickCreatePolyline: function(evt) {
+    evt.preventDefault();
 
     // Prevent repeat clicks on the same geometry drawing tool
     if (this.layerType === "polyline") return;
@@ -240,12 +246,13 @@ module.exports = Backbone.View.extend({
 
     this.numVertices = 0;
     this.layerType = "polyline";
-    this.setGeometryToolbarHighlighting(evt.target);
+    this.setGeometryToolbarHighlighting(evt.currentTarget);
     this.displayHelpMessage("draw-poly-geometry-start-msg");
   },
 
   onClickCreatePolygon: function(evt) {
-    
+    evt.preventDefault();
+
     // Prevent repeat clicks on the same geometry drawing tool
     if (this.layerType === "polygon") return;
 
@@ -263,11 +270,13 @@ module.exports = Backbone.View.extend({
     
     this.numVertices = 0;
     this.layerType = "polygon";
-    this.setGeometryToolbarHighlighting(evt.target);
+    this.setGeometryToolbarHighlighting(evt.currentTarget);
     this.displayHelpMessage("draw-poly-geometry-start-msg");
   },
 
   onClickEditGeometry: function(evt) {
+    evt.preventDefault();
+    
     if (this.workingGeometry) {
       
       // If the user clicks the edit button while editing, we commit the edited
@@ -282,13 +291,15 @@ module.exports = Backbone.View.extend({
       });
       this.workingGeometry.enable();
 
-      this.setGeometryToolbarHighlighting(evt.target);
+      this.setGeometryToolbarHighlighting(evt.currentTarget);
       this.displayHelpMessage("edit-poly-geometry-msg");
       this.hideColorpicker();
     }
   },
 
-  onClickDeleteGeometry: function() {
+  onClickDeleteGeometry: function(evt) {
+    evt.preventDefault();
+
     var self = this;
 
     self.editingLayerGroup.eachLayer(function(layer) {
@@ -350,8 +361,8 @@ module.exports = Backbone.View.extend({
       .addClass("hidden");
   },
 
-  setGeometryToolbarHighlighting: function(target) {
-    var target = this.$el.find(target);
+  setGeometryToolbarHighlighting: function(currentTarget) {
+    var target = this.$el.find(currentTarget)
 
     if (target.hasClass("selected")) {
       target.removeClass("selected");
@@ -370,7 +381,7 @@ module.exports = Backbone.View.extend({
   },
 
   resetGeometryToolbarHighlighting: function() {
-    this.$el.find(".geometry-toolbar img")
+    this.$el.find(".geometry-toolbar button")
       .removeClass("selected");
   },
 
