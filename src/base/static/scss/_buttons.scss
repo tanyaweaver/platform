@@ -385,14 +385,15 @@ button.sp-selected {
         font-family: FontAwesome;
 
         button {
-            width: 40px;
+            max-width: 110px;
             background: transparent;
             cursor: pointer;
             border: 2px solid transparent;
             padding: 5px;
             border-radius: 3px;
-            margin-left: 20px;
-            margin-right: 20px;
+            margin-right: 10px;
+            margin-left: 10px;
+            color: #FFF;
 
             &:hover {
                 border: 2px solid #FFF;
@@ -400,6 +401,19 @@ button.sp-selected {
             &.selected {
                 background-color: #FFF;
                 border: 2px solid #FFF;
+                color: $button-background-lightblue;
+            }
+
+            img {
+                width: 30px;
+                float: left;
+                padding-top: 4px;
+            }
+
+            span {
+                font-family: $default-font-family;
+                font-size: 0.9em;
+                font-weight: 100;
             }
         }
     }
