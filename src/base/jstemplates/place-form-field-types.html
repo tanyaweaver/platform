@@ -165,6 +165,20 @@
       <button class="colorpicker"><img src="/static/css/images/colorpicker-icon.svg"><span>{{#_}}Change colors{{/_}}</span></button>
     </div>
     <div class="clearfix"></div>
+    <div class="geometry-toolbar-icon-field hidden">
+      <p><em>{{#_}}Choose an icon style below{{/_}}</em></p>
+      {{#each content}}
+        <input type="radio" 
+               name={{ ../name }} 
+               id="{{ ../name }}-{{ @index }}" 
+               value={{ url }} 
+               {{#if selected}}checked{{/if}}>
+        <label for="{{ ../name }}-{{ @index }}"
+               class="{{#ifAnd ../isAutocomplete selected}}is-autocomplete{{/ifAnd}}">{{ label }}
+          <img src={{url}} />
+        </label>
+      {{/each}}
+    </div>
   </div>
 {{/is}}
 
