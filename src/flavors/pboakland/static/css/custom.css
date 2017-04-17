@@ -223,3 +223,145 @@ label {
   letter-spacing: 0;
   line-height: 1.9;
 }
+
+/* right sidebar overrides */
+.right-sidebar-content-menu {
+  display: none;
+}
+
+.right-sidebar-content-detail {
+  width: 100% !important;
+  background-color: #f1f3f5 !important;
+}
+
+.collapse-btn {
+  background-color: #f1f3f5 !important;
+  left: -28px !important;
+}
+
+#right-sidebar-container {
+  background-color: #f1f3f5;
+}
+
+.story-selected .snip1579 figcaption {
+  height: calc(80%);
+}
+
+.sidebar-story-item {
+/*  width: 45% !important;
+  float: left !important;*/
+  border-top: none !important;
+  border-bottom: none !important;
+}
+
+.sidebar-story-item {
+  background-color: transparent !important;
+}
+
+.sidebar-story-detail-container {
+  border-left: 5px solid transparent;
+  width: 95%;
+  float: right;
+  background-color: #ced4da;
+}
+
+.sidebar-story-detail-container.is-even-row {
+  background-color: #f1f3f5;
+}
+
+.story-selected .sidebar-story-detail-container {
+  border-left: 5px solid #fa5252;
+}
+
+.right-sidebar-header {
+  padding: 10px;
+  height: 50px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.right-sidebar-header img {
+  float: left;
+  width: 30px;
+}
+
+.right-sidebar-header h4 {
+  float: right;
+  line-height: 0.9em !important;
+  max-width: 85%;
+  padding-left: 20px !important;
+}
+
+/* =Grid-based sidebar layout
+Adapted from http://littlesnippets.net/snip1579/
+-------------------------------------------------------------- */
+.snip1579 {
+  font-family: Roboto, sans-serif;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  margin: 0;
+  width: 80%;
+  float: right;
+  margin-top: 5px;
+  margin-left: 10%;
+  background-color: #000000;
+  color: #ffffff;
+  text-align: left;
+  font-size: 14px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
+.snip1579 * {
+  -webkit-transition: all 0.35s;
+  transition: all 0.35s;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.snip1579 img {
+  vertical-align: top;
+  min-width: 100%;
+}
+.snip1579 figcaption {
+  position: absolute;
+  height: 40px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  overflow: hidden;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+.snip1579 h3 {
+  text-transform: uppercase;
+  font-size: 1em;
+  line-height: 1em;
+  margin-top: 3px;
+  margin-bottom: 5px;
+}
+.snip1579 h5 {
+  font-weight: 400;
+  margin: 0;
+  text-transform: uppercase;
+  color: #bbb;
+  letter-spacing: 1px;
+}
+.snip1579 blockquote {
+  padding: 0;
+  margin-top: 15px;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  font-style: italic;
+  font-size: 1em;
+}
+.snip1579 a {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.snip1579:hover figcaption,
+.snip1579.hover figcaption {
+  height: calc(80%);
+}

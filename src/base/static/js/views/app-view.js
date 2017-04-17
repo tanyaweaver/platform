@@ -282,7 +282,10 @@
             "previous": story.order[(i - 1 + totalStoryElements) % totalStoryElements].url,
             "next": story.order[(i + 1) % totalStoryElements].url,
             "basemap": config.basemap || null,
-            "spotlight": (config.spotlight === false) ? false : true
+            "spotlight": (config.spotlight === false) ? false : true,
+            "imgUrl": config.imgUrl || null,
+            "title": config.title || null,
+            "description": config.description || null
           }
         });
         story.order = storyStructure;

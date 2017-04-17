@@ -1,4 +1,4 @@
-<a href="/{{#if url-title}}{{url-title}}{{else}}{{#if datasetSlug}}{{datasetSlug}}/{{id}}{{else}}{{id}}{{/if}}{{/if}}"
+<!-- <a href="/{{#if url-title}}{{url-title}}{{else}}{{#if datasetSlug}}{{datasetSlug}}/{{id}}{{else}}{{id}}{{/if}}{{/if}}"
 	 rel="internal">
 	<li>	
 		<img class="sidebar-story-thumbnail" src={{iconUrl}} />
@@ -11,3 +11,18 @@
 		</p> 
 	</li>
 </a>
+ -->
+
+<div class="sidebar-story-detail-container{{#if isEvenRow}} is-even-row{{/if}}">
+	<figure class="snip1579">
+		<img src="{{imgUrl}}" />
+		<figcaption>
+		  <h3>{{storyItemTitle}}</h3>
+		  <blockquote>
+		    <p>{{storyItemDescription}}</p>
+		  </blockquote>
+		</figcaption>
+		<a href="/{{#if url-title}}{{url-title}}{{else}}{{#if datasetSlug}}{{datasetSlug}}/{{id}}{{else}}{{id}}{{/if}}{{/if}}"
+		 rel="internal"></a>
+	</figure>
+</div>

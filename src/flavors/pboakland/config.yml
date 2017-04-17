@@ -51,14 +51,17 @@ map:
     - id: osm
       url: http://{s}.tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png
       attribution: '<a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+      type: basemap
 
     - id: satellite
       url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+      type: basemap
 
     - id: dark
       url: //api.mapbox.com/styles/v1/smartercleanup/cis9wdf5h003w2xt6atlz48yh/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: 'Hello World'
+      type: basemap
 
     - id: districts
       type: cartodb
@@ -176,11 +179,11 @@ sidebar:
               title: _(Oakland districts)
               visibleDefault: true
 
-    # - id: ticker
-    #   view: ActivityView
-    #   icon: comments-o
-    #   activity: true
-    #   title: _(Activity Stream:)
+    - id: ticker
+      view: ActivityView
+      icon: comments-o
+      activity: true
+      title: _(Activity Stream:)
 
     - id: right-sidebar
       title: _(Community ideas:)
@@ -205,6 +208,13 @@ activity:
   # How often to refresh the activity list, in milliseconds.
   interval: 30000
   show_in_right_panel: true
+
+right_sidebar:
+  show: true
+  tabs:
+    - name: story
+      show: true
+      tab_name: _(Stories)
 
   # Place Types
 
@@ -513,3 +523,45 @@ pages:
     slug: getinvolved
     name: getinvolved
     hide_from_top_bar: false
+
+story:
+  priority-sites:
+    tagline: _(Next budget priority)
+    header: _(Oakland Community Development Priorities)
+    # every story item will default to the zoom level and visible
+    # layers defined below. If a story element defines a different
+    # zoom level and/or visible layers, it will use those wholesale
+    # (that is, no default settings will be inherited).
+    default_zoom: 17
+    default_visible_layers:
+      - pboakland
+    order:
+      - url: idea/1080
+        imgUrl: /static/css/images/street-safety-1.jpg
+        title: _(Santa Fe Street Safety)
+        description: _( )
+      - url: idea/1068
+        imgUrl: /static/css/images/street-safety-2.jpg
+        title: _(Longfellow Street Safety)
+        description: _( )
+      - url: idea/875
+        imgUrl: /static/css/images/community-garden.jpg
+        title: _(Community Gardens)
+        description: _( )
+      - url: idea/977
+        imgUrl: /static/css/images/oakland-chinatown.jpg
+        title: _(Chinatown Security Cameras)
+        description: _( )
+      - url: idea/2396
+        imgUrl: /static/css/images/oakland-chinatown-night.jpg
+        title: _(Chinatown Street Lighting)
+        description: _( )
+      - url: idea/2010
+        imgUrl: /static/css/images/junk-boat.jpg
+        title: _(Junk Boat Improvements)
+        description: _( )
+      - url: idea/1055
+        imgUrl: /static/css/images/street-safety-3.jpg
+        title: _(Oakland High Safety Improvements)
+        description: _( )
+

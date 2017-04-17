@@ -9,13 +9,27 @@ var SidebarStoryItemView = Backbone.Marionette.ItemView.extend({
   serializeData: function() {
     var data = this.model.toJSON();
     _.extend(data, {
-      iconUrl: this.iconUrl
+      iconUrl: this.iconUrl,
+      imgUrl: this.storyDetails.imgUrl,
+      storyItemTitle: this.storyDetails.title,
+      storyItemDescription: this.storyDetails.description,
+      isEvenRow: (this.options.sidebarStoryView.itemViewCounter % 2 === 0)
     });
 
     return data;
   },
 
   onBeforeRender: function() {
+    this.options.sidebarStoryView.itemViewCounter++;
+
+    if (this.model.get("url-title")) {
+      this.storyDetails = this.options.storyDetails[this.model.get("url-title")];
+    } else if (this.model.get("datasetSlug")) {
+      this.storyDetails = this.options.storyDetails[this.model.get("datasetSlug") + "/" + this.model.get("id")];
+    } else {
+      this.storyDetails = this.options.storyDetails[this.model.get("id")];      
+    }
+
     // try to find the icon for a landmark layer
     this.layerView = this.options.layerViews[this.model.get("datasetId")][this.model.get("id")];
     // try to find the icon for a place layer
@@ -88,6 +102,7 @@ var SidebarStoryItemView = Backbone.Marionette.ItemView.extend({
 
 // a view for managing a collection of story items
 var SidebarStoryView = Backbone.Marionette.CollectionView.extend({
+  itemViewCounter: 0,
   itemView: SidebarStoryItemView,
   events: {
     "click .nav-previous-pane": "showMenu"
@@ -96,7 +111,8 @@ var SidebarStoryView = Backbone.Marionette.CollectionView.extend({
     this.itemViewOptions = {
       layerViews: this.options.layerViews,
       router: this.options.router,
-      sidebarStoryView: this
+      sidebarStoryView: this,
+      storyDetails: this.options.storyDetails
     }
     this.storyItemSelected = false;
   },
@@ -161,6 +177,7 @@ var SidebarStoryMenuView = Backbone.View.extend({
       layerViews: this.options.layerViews,
       router: this.options.router,
       storyName: storyName,
+      storyDetails: this.options.storyConfig[storyName].order,
       storyHeader: this.options.storyConfig[storyName].header,
       sidebarStoryMenuView: this
     });
