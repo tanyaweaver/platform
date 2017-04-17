@@ -88,6 +88,13 @@ map:
       type: place
       slug: idea
 
+    - id: priorities
+      type: landmark
+      url: "https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks"
+      sources:
+        - "https://raw.githubusercontent.com/mapseed/data/master/pboakland-priorities.json"
+
+
 # The values map the place type to map icons (defined below).
 place_types:
 
@@ -141,6 +148,33 @@ place_types:
         icon:
           iconUrl: /static/css/images/markers/marker-housing.png
 
+  mapbox:
+    # Mapbox Points
+    rules:
+    # LineString
+      - condition: '"{{geometry.type}}" == "LineString"'
+        style:
+          color: "{{style.color}}"
+          opacity: "{{style.opacity}}"
+          weight: "{{style.weight}}"
+    # Polygons
+      - condition: '"{{geometry.type}}" == "Polygon"'
+        style:
+          shapeType: polygon
+          fillColor: "#0080ff"
+          fill: "true"
+          color: "#0000ff"
+          opacity: 0.7
+          fillOpacity: 0.5
+          weight: "2px"
+
+  marker:
+    zoomType: markerZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-streets.png
+
 # Sidebar and activity stream should be enabled and disabled together!
 # note: sidebar is aka 'MasterLegend'
 # TODO: Couple the sidebar and activity stream because the activity stream is a component of the sidebar
@@ -173,10 +207,14 @@ sidebar:
           layers:
             - id: pboakland
               title: _(Community Reports)
-              visibleDefault: true
+              visibleDefault: false
 
             - id: districts
               title: _(Oakland districts)
+              visibleDefault: true
+
+            - id: priorities
+              title: _(Budget Priorities)
               visibleDefault: true
 
     - id: ticker
@@ -534,33 +572,38 @@ story:
     # (that is, no default settings will be inherited).
     default_zoom: 17
     default_visible_layers:
-      - pboakland
+      - priorities
+      - districts
     order:
-      - url: idea/1080
+      - url: santa-fe-street-safety-improvements
         imgUrl: /static/css/images/street-safety-1.jpg
         title: _(Santa Fe Street Safety)
         description: _( )
-      - url: idea/1068
+        spotlight: false
+      - url: longfellow-street-safety-improvements
         imgUrl: /static/css/images/street-safety-2.jpg
         title: _(Longfellow Street Safety)
         description: _( )
-      - url: idea/875
+        spotlight: false
+      - url: community-gardens
         imgUrl: /static/css/images/community-garden.jpg
         title: _(Community Gardens)
         description: _( )
-      - url: idea/977
+      - url: security-cameras
         imgUrl: /static/css/images/oakland-chinatown.jpg
         title: _(Chinatown Security Cameras)
         description: _( )
-      - url: idea/2396
+        spotlight: false
+      - url: street-lighting
         imgUrl: /static/css/images/oakland-chinatown-night.jpg
         title: _(Chinatown Street Lighting)
         description: _( )
-      - url: idea/2010
+        spotlight: false
+      - url: junk-boat-play-structure
         imgUrl: /static/css/images/junk-boat.jpg
         title: _(Junk Boat Improvements)
         description: _( )
-      - url: idea/1055
+      - url: oakland-high-traffic-safety
         imgUrl: /static/css/images/street-safety-3.jpg
         title: _(Oakland High Safety Improvements)
         description: _( )
