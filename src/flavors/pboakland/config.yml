@@ -164,8 +164,8 @@ place_types:
           fillColor: "#0080ff"
           fill: "true"
           color: "#0000ff"
-          opacity: 0.7
-          fillOpacity: 0.5
+          opacity: 0.5
+          fillOpacity: 0.3
           weight: "2px"
 
   marker:
@@ -589,6 +589,11 @@ story:
         imgUrl: /static/css/images/community-garden.jpg
         title: _(Community Gardens)
         description: _( )
+        panTo:
+          lat: 37.8026635004523
+          lng: -122.2434139251709
+        zoom: 13
+        spotlight: false
       - url: security-cameras
         imgUrl: /static/css/images/oakland-chinatown.jpg
         title: _(Chinatown Security Cameras)
