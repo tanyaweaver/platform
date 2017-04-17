@@ -69,6 +69,42 @@ map:
       attribution: 'Hello World'
       type: basemap
 
+    - id: elevation
+      type: tangram
+      config_info:
+        sources:
+          mapzen:
+            type: TopoJSON
+            url: https://tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson
+            url_params:
+              api_key: mapzen-tDHBHDp
+            max_zoom: 16
+          normals:
+            type: Raster
+            url: https://tile.mapzen.com/mapzen/terrain/v1/normal/{z}/{x}/{y}.png
+            url_params:
+              api_key: mapzen-tDHBHDp
+            max_zoom: 15
+        lights:
+          directional1:
+            type: directional
+            direction: [1, -.6, -.5]
+            diffuse: [1.000, 0.931, 0.776]
+          directional2:
+            type: directional
+            direction: [-1, -.4, -.5]
+            diffuse: [0.824, 0.970, 0.924]
+        styles: 
+          hillshade:
+            base: raster
+            raster: normal
+        layers:
+          terrain:
+            data: { source: normals, layer: _default }
+            draw:
+              hillshade:
+                order: 0
+
     - id: dirt-corps
       type: landmark
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks      
@@ -579,6 +615,9 @@ sidebar:
           visibleDefault: false
         - id: vintage
           title: _(Vintage)
+          visibleDefault: false
+        - id: elevation
+          title: _(Elevation)
           visibleDefault: false
       groupings:
         - id: grp-community

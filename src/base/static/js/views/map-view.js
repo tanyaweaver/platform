@@ -382,6 +382,13 @@
           .on('error', function(err) {
             Util.log('Cartodb layer creation error:', err);
           });
+      } else if (config.type && config.type === 'tangram') {
+        layer = Tangram.leafletLayer({
+          scene: config.config_info,
+          attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
+        });
+        self.layers[config.id] = layer;
+
       } else if (config.layers) {
         // If "layers" is present, then we assume that the config
         // references a Leaflet WMS layer.
