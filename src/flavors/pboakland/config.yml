@@ -371,7 +371,7 @@ place:
       autocomplete: true
       type: text
       prompt: _(Your age:)
-      display_prompt: _()
+      display_prompt: _(Age:)
       placeholder: _(Your age will not appear on the map)
       optional: true
     - name: private-ethnicity
@@ -400,6 +400,7 @@ place:
       autocomplete: true
       type: dropdown
       prompt: _(Your income:)
+      display_prompt: _(Income:)
       annotation: _(Your income will not appear on the map)
       content:
         - label: _(Under $10,000)
@@ -436,12 +437,14 @@ place:
       autocomplete: true
       type: text
       prompt: _(Your name)
+      display_prompt: _(Name:)
       placeholder: _(Name)
       optional: true
     - name: private-submitter_email
       autocomplete: true
       type: text
       prompt: _(Your Email)
+      display_prompt: _(Email:)
       placeholder: _(Receive email updates on your idea)
       optional: true
       sticky: true
@@ -449,7 +452,7 @@ place:
       autocomplete: true
       type: text
       prompt: _(Your phone number:)
-      display_prompt: _()
+      display_prompt: _(Phone number:)
       placeholder: _(Your phone number will not appear on the map)
       optional: true
     - type: submit
