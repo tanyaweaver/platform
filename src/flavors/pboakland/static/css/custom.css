@@ -292,6 +292,17 @@ label {
   padding-left: 20px !important;
 }
 
+#content img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+}
+
+.story-tagline {
+  text-align: center;
+}
+
 /* =Grid-based sidebar layout
 Adapted from http://littlesnippets.net/snip1579/
 -------------------------------------------------------------- */
