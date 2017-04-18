@@ -63,6 +63,11 @@ map:
       attribution: 'Hello World'
       type: basemap
 
+    - id: grayscale
+      url: https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+      attribution: 'Hello World'
+      type: basemap
+
     - id: districts
       type: cartodb
       url: "https://heyduwamishcore.carto.com/api/v2/viz/b852afe8-bc1c-11e6-b3fb-0e05a8b3e3d7/viz.json"
@@ -199,6 +204,9 @@ sidebar:
           visibleDefault: false
         - id: dark
           title: _(Dark)
+          visibleDefault: false
+        - id: grayscale
+          title: _(Light)
           visibleDefault: false
       groupings:
         - id: grp-community
@@ -573,7 +581,6 @@ story:
     default_zoom: 17
     default_visible_layers:
       - priorities
-      - districts
     order:
       - url: santa-fe-street-safety-improvements
         imgUrl: /static/css/images/street-safety-1.jpg
