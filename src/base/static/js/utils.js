@@ -29,35 +29,6 @@ var self = module.exports = {
       }
     },
 
-    // Given a model, update social media meta tags with the model's information,
-    // or generic information from the appConfig as a fallback.
-    updateSocialMetaTags: function(model, appConfig) {
-      var siteName = appConfig.title,
-          title = model.get("title") ||
-                  model.get("name") || 
-                  appConfig.title,
-          description = model.get("description") || 
-                        appConfig.meta_description,
-          imgSrc = (model.get("attachments").length > 0) ?
-                    model.get("attachments")[0].file :
-                    appConfig.thumbnail,
-          submitter = model.get("submitter");
-
-      // Twitter meta tags
-      $("meta[name='twitter:title']").attr("content", title);
-      $("meta[name='twitter:description']").attr("content", description);
-      $("meta[name='twitter:img:src']").attr("content", imgSrc);
-      $("meta[name='twitter:creator']").attr("content", submitter);
-
-      // Facebook meta tags
-      $("meta[name='og:site_name']").attr("content", siteName);
-      $("meta[name='og:title']").attr("content", title);
-      $("meta[name='og:description']").attr("content", description);
-      $("meta[name='og:image']").attr("content", imgSrc);
-
-      return title;
-    },
-
     getPathname: function(model) {
       if (model.get("url-title")) {
         return model.get("url-title");
@@ -70,24 +41,45 @@ var self = module.exports = {
 
     onSocialShare: function(model, service) {
       var appConfig = Shareabouts.Config.app,
-          title = this.updateSocialMetaTags(model, appConfig),
+          title = model.get("title") ||
+                  model.get("name") || 
+                  appConfig.title,
+          desc = model.get("description") || 
+                        appConfig.meta_description,
           protocol = window.location.protocol,
           host = window.location.host,
           pathname = this.getPathname(model),
-          url = [protocol, "//", host, "/", pathname].join(""),
-          shareUrl;
+          img = (model.attachmentCollection.models.length > 0) ?
+                 model.attachmentCollection.models[0].get("file") :
+                 protocol + "//" + host + appConfig.thumbnail,
+          redirectUrl = [protocol, "//", host, "/", pathname].join(""),
+          // shareUrl = "http://social.mapseed.org",
+          // TEMPORARY
+          // shareUrl = "http://52f34701.ngrok.io/" + Date.now(),
+          shareUrl = "http://52f34701.ngrok.io/",
+          queryString = [  
+            "?url=", redirectUrl,
+            "&title=", title,
+            "&img=", img,
+            "&desc=", desc
+          ].join("");
 
-      if (service === "twitter") {
-        shareUrl = ["https://twitter.com/intent/tweet?url=",
-                    url,
-                    "&text=",
-                    title].join("");
-      } else if (service === "facebook") {
-        shareUrl = ["https://www.facebook.com/sharer/sharer.php?u=",
-                    url].join("");
+      // if (service === "twitter") {
+      //   shareUrl = ["https://twitter.com/intent/tweet?url=",
+      //               shareUrl].join("");
+      //               // "&text=",
+      //               // title].join("");
+      // } else if (service === "facebook") {
+      //   shareUrl = ["https://www.facebook.com/sharer/sharer.php?u=",
+      //               shareUrl].join("");
+      // }
+
+      if (service === "facebook") {
+        FB.ui({
+          method: 'share',
+          href: shareUrl + queryString
+        }, function(response){});
       }
-
-      window.open(shareUrl, "_blank");
     },
 
     // Given the information provided in a url (that is, an id and possibly a slug),
